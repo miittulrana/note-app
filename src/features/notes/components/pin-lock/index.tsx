@@ -1,6 +1,5 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Lock } from 'phosphor-react';
 import { Button } from '../../../common/components/button';
 
 interface PinLockProps {
@@ -64,9 +63,16 @@ export function PinLock({ onUnlock }: PinLockProps) {
       className="fixed inset-0 bg-white flex flex-col items-center justify-center z-50"
       tabIndex={0}
     >
-      <Lock className="text-6xl text-amber-400 mb-6" weight="fill" />
-      <h1 className="text-2xl font-bold mb-8">Enter PIN to unlock</h1>
-      <p className="text-zinc-500 mb-4">Type using keyboard or click the numbers below</p>
+      <div className="flex flex-col items-center mb-10">
+        <img 
+          src="/public/logo.png" 
+          alt="SaltScript Logo" 
+          className="h-24 w-auto mb-4"
+        />
+        <p className="text-gray-500 text-sm mt-1">CODE, PERFECTLY SEASONED!</p>
+      </div>
+
+      
       
       <div className="flex gap-4 mb-10">
         {[0, 1, 2, 3].map(i => (

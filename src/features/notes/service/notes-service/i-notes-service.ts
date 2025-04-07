@@ -15,6 +15,7 @@ export type INote = {
   color: string;
   isPinned: boolean;
   isUrgent?: boolean;
+  isResolved?: boolean;
   folderId?: string | null;
 };
 

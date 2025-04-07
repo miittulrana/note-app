@@ -1,7 +1,11 @@
 export function Logo() {
   return (
-    <h1 className="max-w-[1ch] overflow-hidden sm:max-w-max sm:overflow-auto font-semibold text-2xl tracking-tighter">
-      Docket
-    </h1>
+    <div className="flex items-center">
+      <img 
+        src="/public/logo.png" 
+        alt="Docket Logo" 
+        className="h-15 w-auto"
+      />
+    </div>
   );
 }

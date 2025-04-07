@@ -3,6 +3,9 @@ import { createContext, useContext, useState, useMemo, ReactNode } from 'react';
 type IFolderContext = {
   selectedFolderId: string | null;
   setSelectedFolderId: (id: string | null) => void;
+  expandedFolders: Set<string>;
+  toggleFolderExpanded: (folderId: string) => void;
+  isExpanded: (folderId: string) => boolean;
 };
 
 const FolderContext = createContext<IFolderContext | undefined>(undefined);
@@ -13,13 +16,33 @@ interface IFolderProvider {
 
 export const FolderProvider = ({ children }: IFolderProvider) => {
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+
+  const toggleFolderExpanded = (folderId: string) => {
+    setExpandedFolders(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(folderId)) {
+        newSet.delete(folderId);
+      } else {
+        newSet.add(folderId);
+      }
+      return newSet;
+    });
+  };
+
+  const isExpanded = (folderId: string) => {
+    return expandedFolders.has(folderId);
+  };
 
   const value = useMemo(
     () => ({
       selectedFolderId,
       setSelectedFolderId,
+      expandedFolders,
+      toggleFolderExpanded,
+      isExpanded,
     }),
-    [selectedFolderId]
+    [selectedFolderId, expandedFolders]
   );
 
   return (

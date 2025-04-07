@@ -20,14 +20,17 @@ export function NotesGrid() {
   };
 
   return (
-    <article className="relative mt-20">
-      <div className="flex justify-between items-center mb-12">
-        <h1 className="leading-[0.6] font-semibold tracking-[0.01px] text-6xl">Notes</h1>
+    <article className="relative mt-12 sm:mt-20 notes-grid">
+      <div className="flex justify-between items-center mb-8 sm:mb-12">
+        <h1 className="leading-[0.6] font-semibold tracking-[0.01px] text-3xl md:text-4xl lg:text-5xl">
+          Notes to follow
+        </h1>
         
+        {/* Desktop Add Button (hidden on mobile) */}
         <Button
           onClick={handleAddNote}
           variants={{ type: 'icon' }}
-          className="bg-amber-400 hover:bg-amber-300"
+          className="bg-amber-400 hover:bg-amber-300 hidden md:flex"
         >
           <Plus className="text-xl" weight="bold" />
         </Button>

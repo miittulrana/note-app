@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import './global.css';
+import './global-mobile.css'; // Import mobile-specific styles
 import { AppServicesProvider } from './features/common/services/app-services';
 import { CustomQueryClientProvider } from './features/common/lib/react-query';
 

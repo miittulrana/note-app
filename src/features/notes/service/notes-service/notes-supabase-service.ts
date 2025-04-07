@@ -14,8 +14,9 @@ export class NotesSupabaseService implements INotesService {
     if (folderId) {
       query = query.eq('folder_id', folderId);
     } else {
-      // If viewing "All Notes", get all notes
-      // This change ensures all notes are shown when no folder is selected
+      // If no folder is selected, return an empty array
+      // This ensures notes are only shown when a folder is selected
+      return [];
     }
 
     const { data, error } = await query;
@@ -33,6 +34,7 @@ export class NotesSupabaseService implements INotesService {
       color: note.color,
       isPinned: note.is_pinned,
       isUrgent: note.is_urgent,
+      isResolved: note.is_resolved,
       date: note.created_at,
       folderId: note.folder_id
     }));
@@ -45,6 +47,7 @@ export class NotesSupabaseService implements INotesService {
       color,
       is_pinned: false,
       is_urgent: false,
+      is_resolved: false,
       folder_id: folderId || null
     };
 
@@ -83,6 +86,7 @@ export class NotesSupabaseService implements INotesService {
     if (payload.color !== undefined) updateData.color = payload.color;
     if (payload.isPinned !== undefined) updateData.is_pinned = payload.isPinned;
     if (payload.isUrgent !== undefined) updateData.is_urgent = payload.isUrgent;
+    if (payload.isResolved !== undefined) updateData.is_resolved = payload.isResolved;
     if (payload.folderId !== undefined) updateData.folder_id = payload.folderId;
     
     const { error } = await supabase
