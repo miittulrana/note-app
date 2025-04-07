@@ -4,13 +4,22 @@ import { Button } from '../../../common/components/button';
 import { useAddNote } from '../../mutations/use-add-note';
 import { useFetchNotes } from '../../queries/use-fetch-notes';
 import { NoteCard } from '../note-card';
+import { useFolderContext } from '../../context/folder-context';
+import { COLORS } from '../../constants/colors';
 
 export function NoteList() {
   const { queryInput, data, isFetching, isLoading, isError } = useFetchNotes();
+  const { selectedFolderId } = useFolderContext();
   const addNote = useAddNote();
 
+  // Function to get a random color from the COLORS array
+  const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * COLORS.length);
+    return COLORS[randomIndex].color;
+  };
+
   const onAddNote = () => {
-    addNote('bg-amber-400');
+    addNote(getRandomColor());
   };
 
   if (isLoading) {
@@ -49,8 +58,10 @@ export function NoteList() {
 
         {queryInput === '' && (
           <span>
-            Hmmm, it's seems you don't have any notes created.
-            <span className="block">
+            {selectedFolderId ? 
+              `This folder is empty.` : 
+              `Hmmm, it's seems you don't have any notes created.`}
+            <span className="block mt-2">
               Let's{' '}
               <Button
                 onClick={onAddNote}

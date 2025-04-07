@@ -1,11 +1,13 @@
 import { createContext, useContext } from 'react';
 
-import { NotesLocalStorageService } from '../../notes/service/notes-service/notes-local-storage-service';
+import { NotesSupabaseService } from '../../notes/service/notes-service/notes-supabase-service';
+import { FoldersSupabaseService } from '../../notes/service/folders-service/folders-supabase-service';
 
 type IAppServices = typeof APP_SERVICES;
 
 const APP_SERVICES = {
-  notesService: new NotesLocalStorageService(),
+  notesService: new NotesSupabaseService(),
+  foldersService: new FoldersSupabaseService(),
 };
 
 const AppServices = createContext<IAppServices | undefined>(undefined);

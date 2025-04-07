@@ -5,7 +5,6 @@ export function Notes() {
   return (
     <main className="h-full flex sm:gap-10">
       <SideBar />
-
       <MainContent />
     </main>
   );

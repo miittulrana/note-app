@@ -1,9 +1,10 @@
 export interface INotesService {
-  fetch(): Promise<INote[]>;
-  add(color: string): Promise<any>;
+  fetch(folderId?: string | null): Promise<INote[]>;
+  add(color: string, folderId?: string | null): Promise<any>;
   edit(payload: INotePayload): Promise<any>;
   remove(id: string): Promise<any>;
   favorite(): Promise<any>;
+  moveToFolder?(noteId: string, folderId: string | null): Promise<any>;
 }
 
 export type INote = {
@@ -13,6 +14,8 @@ export type INote = {
   content: string;
   color: string;
   isPinned: boolean;
+  isUrgent?: boolean;
+  folderId?: string | null;
 };
 
 export type INotePayload = { id: string } & Partial<Omit<INote, 'date' | 'id'>>;

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { PushPin, Trash } from 'phosphor-react';
+import { PushPin, Trash, Warning } from 'phosphor-react';
 import { ChangeEvent } from 'react';
 import { Button } from '../../../common/components/button';
 import { debounce } from '../../../common/utils/debounce';
@@ -29,6 +29,10 @@ export function NoteCard(props: INote) {
     editMutation({ id: props.id, isPinned: !props.isPinned });
   };
 
+  const onToggleUrgent = () => {
+    editMutation({ id: props.id, isUrgent: !props.isUrgent });
+  };
+
   return (
     <motion.li
       layoutId={props.id}
@@ -53,27 +57,46 @@ export function NoteCard(props: INote) {
       />
 
       <div className="flex items-center justify-between">
-        <span className="font-normal">{new Date(props.date).toLocaleDateString()}</span>
+        <span className="font-normal">
+          {props.date && !isNaN(new Date(props.date).getTime()) 
+            ? new Date(props.date).toLocaleDateString() 
+            : new Date().toLocaleDateString()}
+        </span>
 
-        <NoteOptions>
-          <Button
-            onClick={onDeleteNote}
-            id="option"
-            variants={{ type: 'icon' }}
-            className="bg-zinc-800"
-          >
-            <Trash className="text-xl" />
-          </Button>
+        <div className="flex items-center gap-2">
+          {props.isUrgent && (
+            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs">Urgent</span>
+          )}
 
-          <Button
-            onClick={onPinNote}
-            id="option"
-            variants={{ type: 'icon' }}
-            className={`${props.isPinned ? 'bg-amber-400' : 'bg-zinc-800'}`}
-          >
-            <PushPin className="text-xl" />
-          </Button>
-        </NoteOptions>
+          <NoteOptions>
+            <Button
+              onClick={onDeleteNote}
+              id="option"
+              variants={{ type: 'icon' }}
+              className="bg-zinc-800"
+            >
+              <Trash className="text-xl" />
+            </Button>
+
+            <Button
+              onClick={onPinNote}
+              id="option"
+              variants={{ type: 'icon' }}
+              className={`${props.isPinned ? 'bg-amber-400' : 'bg-zinc-800'}`}
+            >
+              <PushPin className="text-xl" />
+            </Button>
+
+            <Button
+              onClick={onToggleUrgent}
+              id="option"
+              variants={{ type: 'icon' }}
+              className={`${props.isUrgent ? 'bg-red-500' : 'bg-zinc-800'}`}
+            >
+              <Warning className="text-xl" />
+            </Button>
+          </NoteOptions>
+        </div>
       </div>
     </motion.li>
   );

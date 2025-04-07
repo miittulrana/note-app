@@ -1,13 +1,20 @@
 import { Logo } from '../../../common/components/logo';
-
-import { AddNote } from '../add-note';
+import { FolderList } from '../folder-list';
+import { useFolderContext } from '../../context/folder-context';
 
 export function SideBar() {
+  const { selectedFolderId, setSelectedFolderId } = useFolderContext();
+
   return (
-    <section className="py-8 px-2 sm:p-8 flex flex-col items-center border-r-2 border-gray-100">
+    <section className="py-8 px-4 sm:p-8 flex flex-col border-r-2 border-gray-100 w-64">
       <Logo />
 
-      <AddNote />
+      <div className="mt-10">
+        <FolderList 
+          selectedFolderId={selectedFolderId} 
+          onSelectFolder={setSelectedFolderId} 
+        />
+      </div>
     </section>
   );
 }
