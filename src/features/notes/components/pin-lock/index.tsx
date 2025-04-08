@@ -65,14 +65,14 @@ export function PinLock({ onUnlock }: PinLockProps) {
     >
       <div className="flex flex-col items-center mb-10">
         <img 
-          src="/public/logo.png" 
+          src="/logo.png" 
           alt="SaltScript Logo" 
           className="h-24 w-auto mb-4"
         />
         <p className="text-gray-500 text-sm mt-1">CODE, PERFECTLY SEASONED!</p>
       </div>
 
-      
+
       
       <div className="flex gap-4 mb-10">
         {[0, 1, 2, 3].map(i => (
